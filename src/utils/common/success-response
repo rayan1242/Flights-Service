@@ -1,6 +1,6 @@
 const success = {
     success: true,
-    message: 'Successfully create a service',
+    message: 'Successfully competed the request',
     data:{},
     error: {}
 }

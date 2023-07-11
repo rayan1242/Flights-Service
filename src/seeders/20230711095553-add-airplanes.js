@@ -26,7 +26,7 @@ module.exports = {
         capacity:450,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
     ])
   },
 
