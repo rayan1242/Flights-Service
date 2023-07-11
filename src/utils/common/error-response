@@ -1,0 +1,8 @@
+const error = {
+    success: false,
+    message: ' Something went wrong while creating arplane ',
+    data:{},
+    error: {} 
+}
+
+module.exports = error;
