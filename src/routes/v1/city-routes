@@ -1,0 +1,14 @@
+const exrpess = require('express');
+
+const { CityController }  = require('../../controllers');
+const { AirplaneMiddlewares } = require('../../middlewares');
+const router = exrpess.Router();
+
+
+
+
+// /api/v1/cities POST
+router.post('/' ,
+            CityController.createCity);
+
+module.exports = router;
