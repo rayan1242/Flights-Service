@@ -5,20 +5,20 @@ const { data } = require('../utils/common/error-response');
 const airport = require('../models/airport');
 
 /*
- POST: /airportss
+ POST: /airportes
  req-body {name:'IGI',code:'DEL',cityId:5}
 */
 
 async function createAirport(req,res){
     try{
-        const airplane = await AirportService.createAirport({
+        const airport = await AirportService.createAirport({
             name: req.body.name,
             code: req.body.code,
             address: req.body.address,
             cityId: req.body.cityId
 
         });
-        SuccessResponse.data = airplane;
+        SuccessResponse.data = airport;
         return res
                 .status(StatusCodes.CREATED)
                 .json(SuccessResponse);
