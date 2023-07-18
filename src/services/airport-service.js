@@ -78,17 +78,27 @@ async function updateAirport(data,id){
     } catch(error){
         if(error.StatusCodes == StatusCodes.NOT_FOUND){
             throw new AppError("the airport does not exists",error.StatusCodes);
-        }
-        if(error.name = 'SequelizeValidationError' ){
-            let explanation = [];
-            error.errors.forEach((err) =>{
+            } else if (
+                error.name == "SequelizeValidationError" ||
+                error.name == "SequelizeUniqueConstraintError"
+            ) {
+                let explanation = [];
+                error.errors.forEach((err) => {
                 explanation.push(err.message);
-                console.log(error);
-            })
-            throw new AppError(explanation,StatusCodes.BAD_REQUEST);
-        }
-        throw new AppError('Not able to fectch data of the airport',StatusCodes.INTERNAL_SERVER_ERROR);
+                });
+                throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+            } else if (error.name == "SequelizeForeignKeyConstraintError" 
+                        || error.name == "SequelizeDatabaseError" 
 
+            ) {
+                let explanation = [];
+                explanation.push(error.parent.sqlMessage);
+                throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+            }
+            throw new AppError(
+                "Cannot create a new Airport object",
+                StatusCodes.INTERNAL_SERVER_ERROR
+            );
     }
 }
 

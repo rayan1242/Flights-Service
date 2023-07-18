@@ -1,0 +1,16 @@
+const exrpess = require('express');
+
+const { FlightController }  = require('../../controllers');
+const { FlightMiddlewares } = require('../../middlewares');
+const router = exrpess.Router();
+
+
+
+
+// /api/v1/fligths POST
+router.post('/' ,
+            FlightMiddlewares.validateCreateRequest,
+            FlightController.createFlight);
+
+
+module.exports = router; 

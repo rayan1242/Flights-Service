@@ -92,6 +92,7 @@ try{
 
      const airport = await AirportService.updateAirport({
         name: req.body.name,
+        cityId:req.body.cityId,
         code: req.body.code
      },req.params.id);
      SuccessResponse.data = airport;
