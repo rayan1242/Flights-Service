@@ -1,5 +1,5 @@
 const {StatusCodes} =  require('http-status-codes');
-const { FlightRepository } = require('../repositories');
+const { FlightRepository, AirportRepository } = require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const { DateTimeHelpers } = require('../utils/helpers.js')
 const { Op } = require('sequelize');
@@ -52,6 +52,7 @@ async function createFlight(data) {
         [departureAirportId,arrivalAirportId] = query.trips.split("-");
         customFilter.departureAirportId = departureAirportId;
         customFilter.arrivalAirportId = arrivalAirportId;
+        
     }
     if(query.price){
       [minprice,maxprice] = query.price.split("-");
@@ -80,6 +81,7 @@ async function createFlight(data) {
         const airport = await flightRepository.getAllFlights(customFilter,sortFilter);
         return airport;
     } catch(error){
+      console.log(error);
         throw new AppError('Cannot fetch data of all the flights',StatusCodes.INTERNAL_SERVER_ERROR);
 
     }
