@@ -13,4 +13,8 @@ router.post('/' ,
             FlightController.createFlight);
 
 
+// /api/v1/fligths GET
+router.get('/' ,
+            FlightController.getAllFlights);
+
 module.exports = router; 
