@@ -1,5 +1,5 @@
 const {StatusCodes} =  require('http-status-codes');
-const { FlightRepository, AirportRepository } = require('../repositories');
+const { FlightRepository} = require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const { DateTimeHelpers } = require('../utils/helpers.js')
 const { Op } = require('sequelize');
@@ -87,11 +87,23 @@ async function createFlight(data) {
     }
   }
   
+async function getFlight(id){
+  try{
+    const flight = await flightRepository.get(id);
+    return flight;
+} catch(error){
+    if(error.StatusCodes == StatusCodes.NOT_FOUND){
+        throw new AppError('The flight you requested is not present',error.StatusCodes);
+    }
+    throw new AppError('Cannot fetch data of the flight',StatusCodes.INTERNAL_SERVER_ERROR);
 
+}
+}
 
 module.exports = {
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
 }
 
  
