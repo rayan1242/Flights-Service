@@ -2,6 +2,7 @@ const exrpess = require('express');
 
 const { FlightController }  = require('../../controllers');
 const { FlightMiddlewares } = require('../../middlewares');
+const { FlightService } = require('../../services');
 const router = exrpess.Router();
 
 
@@ -21,5 +22,9 @@ router.get('/' ,
 router.get('/:id' ,
             FlightController.getFlight);
 
+// /api/v1/flights/2/seats PATCH
+router.patch('/:id/seats',
+            FlightMiddlewares.validateUpdateSeatsRequest,
+            FlightController.updateSeats);
 
 module.exports = router; 
